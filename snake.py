@@ -19,15 +19,26 @@ class Snake:
         self.segs = []
         self._create_snake()
         self.head = self.segs[0]
-    
+
+    def _add_segment(self, pos):
+        seg = Turtle(shape="square")
+        seg.color("white")
+        seg.penup()
+        seg.goto(pos)
+        self.segs.append(seg)
+
     def _create_snake(self):
         """creates a snake using turtle objects"""
         for pos in START_POS:
-            seg = Turtle(shape="square")
-            seg.color("white")
-            seg.penup()
-            seg.goto(pos)
-            self.segs.append(seg)
+            self._add_segment(pos)
+    
+    def extend_snake(self, num):
+        """adds segments to the snake"""
+        for i in range(num):
+            self._add_segment(self.segs[-1].position())
+    
+    def increase_speed(self):
+        self.speed += 1
 
     def move(self):
         """moves the snake segments"""
